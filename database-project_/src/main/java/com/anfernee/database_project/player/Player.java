@@ -17,19 +17,41 @@ public class Player {
 
     @Id
     @Column(name = "player_name", unique = true)
-    private String player_name;
+    private String playerName;
+
     private String position;
+
     private String nation;
-    private String team_name;
-    private int age;
-    private int starts;
-    private int matches_played;
-    private double minutes_played;
-    private double goals;
-    private double assists;
-    private double yellow_cards;
-    private double red_cards;
-    private double expected_goals;
-    private double expected_assists;
-    private double penalties_scored;
+
+    @Column(name = "team_name")
+    private String teamName;
+
+    private Integer age;
+
+    private Integer starts;
+
+    @Column(name = "matches_played")
+    private Integer matchesPlayed;
+
+    @Column(name = "minutes_played")
+    private Double minutesPlayed;
+
+    private Double goals;
+
+    private Double assists;
+
+    @Column(name = "yellow_cards")
+    private Double yellowCards;
+
+    @Column(name = "red_cards")
+    private Double redCards;
+
+    @Column(name = "expected_goals")
+    private Double expectedGoals;
+
+    @Column(name = "expected_assists")
+    private Double expectedAssists;
+
+    @Column(name = "penalties_scored")
+    private Double penaltiesScored;
 }
