@@ -1,9 +1,6 @@
 package com.anfernee.database_project.player;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,42 +13,51 @@ import lombok.NoArgsConstructor;
 public class Player {
 
     @Id
-    @Column(name = "player_name", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "\"Player\"")
     private String playerName;
 
+    @Column(name = "\"Pos\"")
     private String position;
 
+    @Column(name = "\"Nation\"")
     private String nation;
 
-    @Column(name = "team_name")
+    @Column(name = "\"Team\"")
     private String teamName;
 
+    @Column(name = "\"Age\"")
     private Integer age;
 
+    @Column(name = "\"Starts\"")
     private Integer starts;
 
-    @Column(name = "matches_played")
+    @Column(name = "\"MP\"")
     private Integer matchesPlayed;
 
-    @Column(name = "minutes_played")
+    @Column(name = "\"Min\"")
     private Double minutesPlayed;
 
+    @Column(name = "\"Gls\"")
     private Double goals;
 
+    @Column(name = "\"Ast\"")
     private Double assists;
 
-    @Column(name = "yellow_cards")
+    @Column(name = "\"CrdY\"")
     private Double yellowCards;
 
-    @Column(name = "red_cards")
+    @Column(name = "\"CrdR\"")
     private Double redCards;
 
-    @Column(name = "expected_goals")
+    @Column(name = "\"xG\"")
     private Double expectedGoals;
 
-    @Column(name = "expected_assists")
+    @Column(name = "\"xAG\"")
     private Double expectedAssists;
 
-    @Column(name = "penalties_scored")
+    @Column(name = "\"PK\"")
     private Double penaltiesScored;
 }
