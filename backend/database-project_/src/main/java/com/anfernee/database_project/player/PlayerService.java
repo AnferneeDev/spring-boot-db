@@ -47,6 +47,10 @@ public class PlayerService {
         return playerRepository.findByPosition(position);
     }
 
+    public List<Player> getPlayerByAge(Integer age) {
+        return playerRepository.findByAge(age);
+    }
+
     @Transactional
     public void deletePlayerByName(String name) {
         playerRepository.deleteByPlayerName(name);
