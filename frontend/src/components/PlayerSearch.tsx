@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Player } from "@/types/player";
+import type { Player } from "@/types/player";
 import { PlayerCard } from "./PlayerCard";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

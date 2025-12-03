@@ -36,8 +36,7 @@ export default function GamePage() {
     setFormation(newFormation);
     setTeam(createEmptyTeam(newFormation));
     setSelectedPosition(null);
-    toast({
-      title: "Formation changed",
+    toast("Formation changed", {
       description: `Switched to ${newFormation.label}`,
     });
   };
@@ -53,8 +52,7 @@ export default function GamePage() {
 
       const isAlreadyInTeam = Object.values(team).some((p) => p?.playerName === player.playerName);
       if (isAlreadyInTeam) {
-        toast({
-          title: "Player already selected",
+        toast("Player already selected", {
           description: `${player.playerName} is already in your team`,
           variant: "destructive",
         });
@@ -63,8 +61,7 @@ export default function GamePage() {
 
       const validPositions = getValidPositionsForSlot(selectedPosition);
       if (!validPositions.includes(player.position)) {
-        toast({
-          title: "Invalid position",
+        toast("Invalid position", {
           description: `${player.playerName} plays ${player.position}, not valid for this slot`,
           variant: "destructive",
         });
@@ -74,20 +71,18 @@ export default function GamePage() {
       setTeam((prev) => ({ ...prev, [selectedPosition]: player }));
       setIsSheetOpen(false);
       setSelectedPosition(null);
-      toast({
-        title: "Player added",
+      toast("Player added", {
         description: `${player.playerName} added to the team`,
       });
     },
-    [selectedPosition, team, formation]
+    [selectedPosition, team, getValidPositionsForSlot]
   );
 
   const handleRemovePlayer = (positionId: string) => {
     const player = team[positionId];
     setTeam((prev) => ({ ...prev, [positionId]: null }));
     if (player) {
-      toast({
-        title: "Player removed",
+      toast("Player removed", {
         description: `${player.playerName} removed from team`,
       });
     }
@@ -95,8 +90,7 @@ export default function GamePage() {
 
   const handleResetTeam = () => {
     setTeam(createEmptyTeam(formation));
-    toast({
-      title: "Team reset",
+    toast("Team reset", {
       description: "All players have been removed",
     });
   };
@@ -105,16 +99,14 @@ export default function GamePage() {
     if (!players) return;
     const randomTeam = generateAITeam(players, formation);
     setTeam(randomTeam);
-    toast({
-      title: "Random team generated!",
+    toast("Random team generated!", {
       description: "Your squad is ready to play",
     });
   };
 
   const handlePlayMatch = () => {
     if (teamCount < 11) {
-      toast({
-        title: "Incomplete team",
+      toast("Incomplete team", {
         description: `You need 11 players to play. Currently have ${teamCount}/11`,
         variant: "destructive",
       });
@@ -139,7 +131,7 @@ export default function GamePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
         <div className="text-center animate-fade-in">
           <div className="relative">
             <Loader2 className="w-16 h-16 animate-spin text-primary mx-auto mb-4" />
@@ -152,10 +144,10 @@ export default function GamePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50 animate-slide-up">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Header: Fixed and Dark */}
+      <header className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50 animate-slide-up">
+        <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="hover:bg-secondary">
@@ -166,7 +158,7 @@ export default function GamePage() {
                   <Trophy className="w-6 h-6 text-primary-foreground transition-transform group-hover:scale-110" />
                 </div>
                 <div>
-                  <h1 className="font-display text-2xl tracking-wider group-hover:text-primary transition-colors">VS AI</h1>
+                  <h1 className="font-display text-2xl tracking-wider text-foreground group-hover:text-primary transition-colors">VS AI</h1>
                   <p className="text-xs text-muted-foreground">Build your dream team</p>
                 </div>
               </div>
@@ -185,7 +177,12 @@ export default function GamePage() {
                 <Shuffle className="w-4 h-4 mr-2" />
                 Random
               </Button>
-              <Button size="sm" onClick={handlePlayMatch} disabled={teamCount < 11} className={cn("transition-all hover:scale-105 active:scale-95", teamCount === 11 && "animate-pulse-glow")}>
+              <Button
+                size="sm"
+                onClick={handlePlayMatch}
+                disabled={teamCount < 11}
+                className={cn("transition-all hover:scale-105 active:scale-95", teamCount === 11 ? "bg-primary text-primary-foreground hover:bg-primary/90 animate-pulse-glow" : "bg-muted text-muted-foreground cursor-not-allowed hover:bg-muted")}
+              >
                 <Swords className="w-4 h-4 mr-2" />
                 Play vs AI
               </Button>
@@ -195,12 +192,12 @@ export default function GamePage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-6">
+      <main className="max-w-7xl mx-auto px-4 py-6">
         <div className="grid lg:grid-cols-[1fr_380px] gap-6">
           {/* Pitch Section */}
           <div className="space-y-4 animate-fade-in">
             <div className="flex items-center justify-between flex-wrap gap-3">
-              <h2 className="font-display text-xl tracking-wide">Your Formation</h2>
+              <h2 className="font-display text-xl tracking-wide text-foreground">Your Formation</h2>
               <FormationSelector selected={formation.name} onChange={handleFormationChange} />
             </div>
 
@@ -216,35 +213,37 @@ export default function GamePage() {
           <aside className="hidden lg:block space-y-4 animate-slide-in-right">
             <TeamStats team={team} />
 
-            <div className="card-gradient rounded-xl border border-border p-4 h-[500px] flex flex-col">
-              <h3 className="font-display text-lg tracking-wide mb-4">Available Players</h3>
-              {players && (
-                <PlayerSearch
-                  players={players}
-                  onSelectPlayer={(player) => {
-                    if (!selectedPosition) {
-                      toast({
-                        title: "Select a position first",
-                        description: "Click on an empty position on the pitch",
-                      });
-                      return;
-                    }
-                    handleSelectPlayer(player);
-                  }}
-                />
-              )}
-            </div>
+            {/* CONDITIONAL RENDERING: ONLY show Player Search if a position is selected */}
+            {selectedPosition && (
+              // Ensure text color is foreground (white) for the player list container
+              <div className="card-gradient rounded-xl border border-border p-4 h-[500px] flex flex-col shadow-lg text-foreground">
+                <h3 className="font-display text-lg tracking-wide mb-4">
+                  Available Players for <span className="text-primary">{selectedPosition}</span>
+                </h3>
+                {/* Player Search container with overflow and flex control */}
+                <div className="flex-1 overflow-y-auto pr-2">{players && <PlayerSearch players={players} onSelectPlayer={handleSelectPlayer} filterPosition={selectedPosition ? getValidPositionsForSlot(selectedPosition)[0] : undefined} />}</div>
+              </div>
+            )}
+
+            {/* NO MESSAGE BLOCK: Only render TeamStats and PlayerSearch (when selected) */}
           </aside>
         </div>
       </main>
 
       {/* Mobile: Player Selection Sheet */}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent side="bottom" className="h-[80vh] rounded-t-2xl">
+        {/* Use bg-card and border-border */}
+        <SheetContent side="bottom" className="h-[80vh] rounded-t-2xl bg-card border-border">
           <SheetHeader>
-            <SheetTitle className="font-display text-xl tracking-wide">Select Player</SheetTitle>
+            <SheetTitle className="font-display text-xl tracking-wide text-foreground">
+              Select Player for <span className="text-primary">{selectedPosition}</span>
+            </SheetTitle>
           </SheetHeader>
-          <div className="mt-4 h-[calc(100%-60px)]">{players && <PlayerSearch players={players} onSelectPlayer={handleSelectPlayer} filterPosition={selectedPosition ? getValidPositionsForSlot(selectedPosition)[0] : undefined} />}</div>
+          {/* Added overflow-y-auto for the sheet content */}
+          <div className="mt-4 h-[calc(100%-60px)] overflow-y-auto">
+            {/* Ensure PlayerSearch inside sheet also uses correct text color inherited from SheetContent */}
+            {players && <PlayerSearch players={players} onSelectPlayer={handleSelectPlayer} filterPosition={selectedPosition ? getValidPositionsForSlot(selectedPosition)[0] : undefined} />}
+          </div>
         </SheetContent>
       </Sheet>
 

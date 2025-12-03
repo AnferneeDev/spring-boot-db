@@ -1,4 +1,5 @@
-import { FORMATIONS, Formation } from "@/utils/formations";
+import { FORMATIONS } from "@/utils/formations";
+import type { Formation } from "@/utils/formations";
 import { cn } from "@/lib/utils";
 
 interface FormationSelectorProps {

@@ -1,4 +1,4 @@
-import { MatchResult } from "@/utils/matchSimulator";
+import type { MatchResult } from "@/utils/matchSimulator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Trophy, Star, Swords, Frown, Sparkles } from "lucide-react";

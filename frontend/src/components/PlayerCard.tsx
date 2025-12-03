@@ -1,4 +1,4 @@
-import { Player } from "@/types/player";
+import type { Player } from "@/types/player";
 import { cn } from "@/lib/utils";
 import { Target, Footprints, Calendar } from "lucide-react";
 import { getFlagUrl, getTeamBadge } from "@/utils/teamUtils";
@@ -92,15 +92,15 @@ export function PlayerCard({ player, onSelect, isSelected, compact, animationDel
       </div>
 
       {/* Hover Effect Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
       {/* Shimmer Effect */}
-      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
     </div>
   );
 }
 
-function StatBox({ icon, label, value, delay = 0 }: { icon: React.ReactNode; label: string; value: number | string; delay?: number }) {
+function StatBox({ icon, label, value }: { icon: React.ReactNode; label: string; value: number | string; delay?: number }) {
   return (
     <div className="bg-secondary/50 rounded-lg p-2 text-center transition-all hover:bg-secondary hover:scale-105">
       <div className="flex items-center justify-center gap-1 text-muted-foreground mb-1">

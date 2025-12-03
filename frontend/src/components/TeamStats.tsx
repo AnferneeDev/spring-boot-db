@@ -1,5 +1,5 @@
-import { FantasyTeam } from "@/types/player";
-import { Target, Footprints, Clock, AlertTriangle, TrendingUp, Star } from "lucide-react";
+import type { FantasyTeam } from "@/types/player";
+import { Target, Footprints, AlertTriangle, TrendingUp, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TeamStatsProps {
@@ -42,7 +42,7 @@ export function TeamStats({ team }: TeamStatsProps) {
         </div>
         {/* Power Bar */}
         <div className="mt-2 h-2 bg-secondary rounded-full overflow-hidden">
-          <div className={cn("h-full transition-all duration-500 rounded-full", isComplete ? "bg-gradient-to-r from-primary to-gold" : "bg-primary/50")} style={{ width: `${Math.min(100, powerScore / 10)}%` }} />
+          <div className={cn("h-full transition-all duration-500 rounded-full", isComplete ? "bg-linear-to-r from-primary to-gold" : "bg-primary/50")} style={{ width: `${Math.min(100, powerScore / 10)}%` }} />
         </div>
       </div>
 

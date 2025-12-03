@@ -1,5 +1,5 @@
-import { Player, FantasyTeam } from "@/types/player";
-import { FormationSlot } from "@/utils/formations";
+import type { FantasyTeam } from "@/types/player";
+import type { FormationSlot } from "@/utils/formations";
 import { cn } from "@/lib/utils";
 import { User, X, Sparkles } from "lucide-react";
 import { getFlagUrl, getTeamBadge } from "@/utils/teamUtils";
@@ -14,7 +14,7 @@ interface FootballPitchProps {
 
 export function FootballPitch({ team, formation, selectedPosition, onPositionClick, onRemovePlayer }: FootballPitchProps) {
   return (
-    <div className="relative w-full aspect-[3/4] max-w-lg mx-auto pitch-gradient rounded-2xl overflow-hidden shadow-card animate-fade-in">
+    <div className="relative w-full aspect-3/4 max-w-lg mx-auto pitch-gradient rounded-2xl overflow-hidden shadow-card animate-fade-in">
       {/* Pitch Lines */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 133" preserveAspectRatio="none">
         {/* Outer boundary */}

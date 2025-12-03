@@ -13,6 +13,7 @@ export function usePlayers() {
         return data;
       } catch (error) {
         console.warn("API not available, using local data");
+        console.error(error);
         return playersData as Player[];
       }
     },
