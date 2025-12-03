@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { playerApi } from "@/services/api";
-import { Player } from "@/types/player";
+import type { Player } from "@/types/player";
 
-// Fallback data for demo when API is not available
 import playersData from "@/data/players.json";
 
 export function usePlayers() {
