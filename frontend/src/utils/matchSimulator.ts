@@ -1,5 +1,5 @@
-import { Player, FantasyTeam } from "@/types/player";
-import { Formation, FormationSlot } from "@/utils/formations";
+import type { Player, FantasyTeam } from "@/types/player";
+import type { Formation } from "@/utils/formations";
 
 export interface MatchResult {
   homeGoals: number;

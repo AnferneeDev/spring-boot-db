@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { FORMATIONS, createEmptyTeam } from "@/utils/formations";
 import type { Formation } from "@/utils/formations";
 
-export default function Index() {
+export default function GamePage() {
   const { data: players, isLoading } = usePlayers();
   const navigate = useNavigate();
   const [formation, setFormation] = useState<Formation>(FORMATIONS[0]);
