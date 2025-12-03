@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/player")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PlayerController {
 
     private final PlayerService playerService;

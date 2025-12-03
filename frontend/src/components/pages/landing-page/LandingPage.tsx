@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Trophy, Menu, X, BarChart3, Globe2, Timer, Shield, Gamepad2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "./FeatureCard";
+import { useNavigate } from "react-router-dom";
 
 const Badge = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
   <div
@@ -12,9 +13,11 @@ const Badge = ({ children, className = "" }: { children: ReactNode; className?: 
   </div>
 );
 
-export default function LandingPage() {
+export function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -72,7 +75,7 @@ export default function LandingPage() {
             <p className="text-xl text-zinc-400 max-w-2xl mx-auto">Draft your dream team and compete instantly. Simple rules, quick results, and pure football fun.</p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-              <Button className="h-14 px-8 text-lg w-full sm:w-auto gap-3 bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/20">
+              <Button className="h-14 px-8 text-lg w-full sm:w-auto gap-3 bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/20" onClick={() => navigate("/play")}>
                 <Gamepad2 className="w-5 h-5" />
                 Play vs AI
               </Button>
