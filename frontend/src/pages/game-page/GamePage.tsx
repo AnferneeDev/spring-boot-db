@@ -11,9 +11,11 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sh
 import { Loader2, Users, RotateCcw, Trophy, Swords, ArrowLeft, Shuffle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { simulateMatch, generateAITeam, MatchResult } from "@/utils/matchSimulator";
+import { simulateMatch, generateAITeam } from "@/utils/matchSimulator";
+import type { MatchResult } from "@/utils/matchSimulator";
 import { cn } from "@/lib/utils";
-import { FORMATIONS, Formation, createEmptyTeam } from "@/utils/formations";
+import { FORMATIONS, createEmptyTeam } from "@/utils/formations";
+import type { Formation } from "@/utils/formations";
 
 export default function Index() {
   const { data: players, isLoading } = usePlayers();
