@@ -8,7 +8,7 @@ import { MatchResultDialog } from "@/components/MatchResultDialog";
 import { FormationSelector } from "@/components/FormationSelector";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Loader2, Users, RotateCcw, Trophy, Swords, ArrowLeft, Shuffle } from "lucide-react";
+import { Loader2, Users, RotateCcw, Trophy, Swords, ArrowLeft, Shuffle, Gamepad2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { simulateMatch, generateAITeam } from "@/utils/matchSimulator";
@@ -130,50 +130,53 @@ export default function GamePage() {
   const teamCount = Object.values(team).filter(Boolean).length;
 
   if (isLoading) {
+    // Loading screen
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
         <div className="text-center animate-fade-in">
           <div className="relative">
-            <Loader2 className="w-16 h-16 animate-spin text-primary mx-auto mb-4" />
-            <div className="absolute inset-0 w-16 h-16 mx-auto rounded-full bg-primary/20 animate-ping" />
+            <Loader2 className="w-16 h-16 animate-spin text-emerald-500 mx-auto mb-4" />
+            <div className="absolute inset-0 w-16 h-16 mx-auto rounded-full bg-emerald-500/20 animate-ping" />
           </div>
-          <p className="text-muted-foreground animate-pulse">Loading players...</p>
+          <p className="text-zinc-400 animate-pulse">Loading players...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Header: Fixed and Dark */}
-      <header className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50 animate-slide-up">
+    // Root container
+    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* Header */}
+      <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 animate-slide-up">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="hover:bg-secondary">
+              <Button variant="ghost" size="icon" onClick={() => navigate("/")} className="text-zinc-400 hover:bg-zinc-800 hover:text-white">
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center transition-all group-hover:scale-110 group-hover:shadow-glow group-hover:rotate-3">
-                  <Trophy className="w-6 h-6 text-primary-foreground transition-transform group-hover:scale-110" />
+                {/* Trophy Icon */}
+                <div className="w-10 h-10 rounded-lg bg-emerald-600 flex items-center justify-center transition-all group-hover:scale-110 group-hover:shadow-glow group-hover:rotate-3">
+                  <Trophy className="w-6 h-6 text-white transition-transform group-hover:scale-110" />
                 </div>
                 <div>
-                  <h1 className="font-display text-2xl tracking-wider text-foreground group-hover:text-primary transition-colors">VS AI</h1>
-                  <p className="text-xs text-muted-foreground">Build your dream team</p>
+                  <h1 className="font-display text-2xl tracking-wider text-white group-hover:text-emerald-400 transition-colors">VS AI</h1>
+                  <p className="text-xs text-zinc-500">Build your dream team</p>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all", teamCount === 11 ? "bg-primary/20 border border-primary/30 animate-pulse-glow" : "bg-secondary")}>
-                <Users className={cn("w-4 h-4 transition-colors", teamCount === 11 ? "text-primary" : "text-muted-foreground")} />
-                <span className={cn("font-display text-lg transition-colors", teamCount === 11 && "text-primary")}>{teamCount}/11</span>
+              <div className={cn("hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all", teamCount === 11 ? "bg-emerald-600/20 border border-emerald-500/30 animate-pulse-glow" : "bg-zinc-800 text-zinc-400")}>
+                <Users className={cn("w-4 h-4 transition-colors", teamCount === 11 ? "text-emerald-400" : "text-zinc-500")} />
+                <span className={cn("font-display text-lg transition-colors", teamCount === 11 && "text-emerald-400")}>{teamCount}/11</span>
               </div>
-              <Button variant="outline" size="sm" onClick={handleResetTeam} className="transition-all hover:scale-105 active:scale-95">
+              <Button variant="outline" size="sm" onClick={handleResetTeam} className="bg-zinc-800 text-zinc-300 border-zinc-700 hover:bg-zinc-700 transition-all hover:scale-105 active:scale-95">
                 <RotateCcw className="w-4 h-4 mr-2 transition-transform hover:rotate-180" />
                 Reset
               </Button>
-              <Button variant="secondary" size="sm" onClick={handleRandomTeam} className="transition-all hover:scale-105 active:scale-95">
+              <Button variant="secondary" size="sm" onClick={handleRandomTeam} className="bg-indigo-600 text-white hover:bg-indigo-700 transition-all hover:scale-105 active:scale-95">
                 <Shuffle className="w-4 h-4 mr-2" />
                 Random
               </Button>
@@ -181,7 +184,7 @@ export default function GamePage() {
                 size="sm"
                 onClick={handlePlayMatch}
                 disabled={teamCount < 11}
-                className={cn("transition-all hover:scale-105 active:scale-95", teamCount === 11 ? "bg-primary text-primary-foreground hover:bg-primary/90 animate-pulse-glow" : "bg-muted text-muted-foreground cursor-not-allowed hover:bg-muted")}
+                className={cn("transition-all hover:scale-105 active:scale-95", teamCount === 11 ? "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-500/20 animate-pulse-glow" : "bg-zinc-600 text-zinc-300 hover:bg-zinc-500")}
               >
                 <Swords className="w-4 h-4 mr-2" />
                 Play vs AI
@@ -197,51 +200,56 @@ export default function GamePage() {
           {/* Pitch Section */}
           <div className="space-y-4 animate-fade-in">
             <div className="flex items-center justify-between flex-wrap gap-3">
-              <h2 className="font-display text-xl tracking-wide text-foreground">Your Formation</h2>
+              <h2 className="font-display text-xl tracking-wide text-white">Your Formation</h2>
               <FormationSelector selected={formation.name} onChange={handleFormationChange} />
             </div>
 
-            <FootballPitch team={team} formation={formation.slots} selectedPosition={selectedPosition} onPositionClick={handlePositionClick} onRemovePlayer={handleRemovePlayer} />
+            {/* PITCH BACKGROUND FIX: Green background added */}
+            <div className="rounded-xl overflow-hidden bg-[rgb(49,122,76)] border border-zinc-700">
+              <FootballPitch team={team} formation={formation.slots} selectedPosition={selectedPosition} onPositionClick={handlePositionClick} onRemovePlayer={handleRemovePlayer} />
+            </div>
 
             {/* Mobile: Team Stats below pitch */}
             <div className="lg:hidden">
+              {/* TeamStats wrapper for black text legibility */}
               <TeamStats team={team} />
             </div>
           </div>
 
           {/* Sidebar - Desktop */}
           <aside className="hidden lg:block space-y-4 animate-slide-in-right">
+            {/* TeamStats wrapper for black text legibility */}
             <TeamStats team={team} />
 
             {/* CONDITIONAL RENDERING: ONLY show Player Search if a position is selected */}
             {selectedPosition && (
-              // Ensure text color is foreground (white) for the player list container
-              <div className="card-gradient rounded-xl border border-border p-4 h-[500px] flex flex-col shadow-lg text-foreground">
-                <h3 className="font-display text-lg tracking-wide mb-4">
-                  Available Players for <span className="text-primary">{selectedPosition}</span>
+              // Player Search container: White background and black text enforced for legibility
+              <div className="bg-white p-4 rounded-lg border border-zinc-200 flex flex-col shadow-lg h-[500px] text-black">
+                <h3 className="font-display text-lg tracking-wide mb-4 text-black">
+                  Available Players for <span className="text-emerald-600">{selectedPosition}</span>
                 </h3>
-                {/* Player Search container with overflow and flex control */}
+                {/* Player Search: Added scroll control */}
                 <div className="flex-1 overflow-y-auto pr-2">{players && <PlayerSearch players={players} onSelectPlayer={handleSelectPlayer} filterPosition={selectedPosition ? getValidPositionsForSlot(selectedPosition)[0] : undefined} />}</div>
               </div>
             )}
 
-            {/* NO MESSAGE BLOCK: Only render TeamStats and PlayerSearch (when selected) */}
+            {/* Removed the "Click a slot..." message block completely. */}
           </aside>
         </div>
       </main>
 
       {/* Mobile: Player Selection Sheet */}
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        {/* Use bg-card and border-border */}
-        <SheetContent side="bottom" className="h-[80vh] rounded-t-2xl bg-card border-border">
+        <SheetContent side="bottom" className="h-[80vh] rounded-t-2xl bg-zinc-900 border-zinc-800">
           <SheetHeader>
-            <SheetTitle className="font-display text-xl tracking-wide text-foreground">
-              Select Player for <span className="text-primary">{selectedPosition}</span>
+            {/* Text Legibility: Ensure sheet title is white */}
+            <SheetTitle className="font-display text-xl tracking-wide text-white">
+              Select Player for <span className="text-emerald-400">{selectedPosition}</span>
             </SheetTitle>
           </SheetHeader>
           {/* Added overflow-y-auto for the sheet content */}
           <div className="mt-4 h-[calc(100%-60px)] overflow-y-auto">
-            {/* Ensure PlayerSearch inside sheet also uses correct text color inherited from SheetContent */}
+            {/* PlayerSearch content inside sheet remains white text, as sheet background is dark */}
             {players && <PlayerSearch players={players} onSelectPlayer={handleSelectPlayer} filterPosition={selectedPosition ? getValidPositionsForSlot(selectedPosition)[0] : undefined} />}
           </div>
         </SheetContent>

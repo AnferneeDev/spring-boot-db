@@ -79,7 +79,7 @@ export function FootballPitch({ team, formation, selectedPosition, onPositionCli
                 </div>
 
                 {/* Player Name */}
-                <div className="mt-1 px-2 py-0.5 bg-card/95 rounded text-[10px] font-medium max-w-20 truncate text-center backdrop-blur-sm shadow-sm group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <div className=" mt-1 px-2 py-0.5 bg-black rounded text-[10px] font-medium max-w-20 truncate text-center backdrop-blur-sm shadow-sm group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   {player.playerName.split(" ").pop()}
                 </div>
               </div>
