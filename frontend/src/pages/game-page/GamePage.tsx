@@ -8,7 +8,7 @@ import { MatchResultDialog } from "@/components/MatchResultDialog";
 import { FormationSelector } from "@/components/FormationSelector";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Loader2, Users, RotateCcw, Trophy, Swords, ArrowLeft, Shuffle, Gamepad2 } from "lucide-react";
+import { Loader2, Users, RotateCcw, Trophy, Swords, ArrowLeft, Shuffle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { simulateMatch, generateAITeam } from "@/utils/matchSimulator";
@@ -27,6 +27,7 @@ export default function GamePage() {
   const [matchResult, setMatchResult] = useState<MatchResult | null>(null);
   const [showMatchResult, setShowMatchResult] = useState(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getValidPositionsForSlot = (slotId: string): string[] => {
     const slot = formation.slots.find((s) => s.id === slotId);
     return slot?.validPositions || [];
@@ -54,7 +55,6 @@ export default function GamePage() {
       if (isAlreadyInTeam) {
         toast("Player already selected", {
           description: `${player.playerName} is already in your team`,
-          variant: "destructive",
         });
         return;
       }
@@ -63,7 +63,6 @@ export default function GamePage() {
       if (!validPositions.includes(player.position)) {
         toast("Invalid position", {
           description: `${player.playerName} plays ${player.position}, not valid for this slot`,
-          variant: "destructive",
         });
         return;
       }
@@ -108,7 +107,6 @@ export default function GamePage() {
     if (teamCount < 11) {
       toast("Incomplete team", {
         description: `You need 11 players to play. Currently have ${teamCount}/11`,
-        variant: "destructive",
       });
       return;
     }
