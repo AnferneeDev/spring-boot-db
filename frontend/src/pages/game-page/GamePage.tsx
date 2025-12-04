@@ -128,7 +128,6 @@ export default function GamePage() {
   const teamCount = Object.values(team).filter(Boolean).length;
 
   if (isLoading) {
-    // Loading screen
     return (
       <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
         <div className="text-center animate-fade-in">
@@ -143,7 +142,6 @@ export default function GamePage() {
   }
 
   return (
-    // Root container
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       {/* Header */}
       <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 animate-slide-up">
@@ -202,36 +200,31 @@ export default function GamePage() {
               <FormationSelector selected={formation.name} onChange={handleFormationChange} />
             </div>
 
-            {/* PITCH BACKGROUND FIX: Green background added */}
+            {/* PITCH BACKGROUND */}
             <div className="rounded-xl overflow-hidden bg-[rgb(49,122,76)] border border-zinc-700">
               <FootballPitch team={team} formation={formation.slots} selectedPosition={selectedPosition} onPositionClick={handlePositionClick} onRemovePlayer={handleRemovePlayer} />
             </div>
 
             {/* Mobile: Team Stats below pitch */}
             <div className="lg:hidden">
-              {/* TeamStats wrapper for black text legibility */}
               <TeamStats team={team} />
             </div>
           </div>
 
           {/* Sidebar - Desktop */}
           <aside className="hidden lg:block space-y-4 animate-slide-in-right">
-            {/* TeamStats wrapper for black text legibility */}
             <TeamStats team={team} />
 
             {/* CONDITIONAL RENDERING: ONLY show Player Search if a position is selected */}
             {selectedPosition && (
-              // Player Search container: White background and black text enforced for legibility
               <div className="bg-white p-4 rounded-lg border border-zinc-200 flex flex-col shadow-lg h-[500px] text-black">
                 <h3 className="font-display text-lg tracking-wide mb-4 text-black">
                   Available Players for <span className="text-emerald-600">{selectedPosition}</span>
                 </h3>
-                {/* Player Search: Added scroll control */}
+                {/* Player Search */}
                 <div className="flex-1 overflow-y-auto pr-2">{players && <PlayerSearch players={players} onSelectPlayer={handleSelectPlayer} filterPosition={selectedPosition ? getValidPositionsForSlot(selectedPosition)[0] : undefined} />}</div>
               </div>
             )}
-
-            {/* Removed the "Click a slot..." message block completely. */}
           </aside>
         </div>
       </main>
