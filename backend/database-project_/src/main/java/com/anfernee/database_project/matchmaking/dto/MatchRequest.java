@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MatchRequest {
 
-    private String playerId;
     private String playerName;
+    private String playerId;
     private int teamPower;
 }

@@ -205,7 +205,7 @@ export default function GamePage() {
               <FootballPitch team={team} formation={formation.slots} selectedPosition={selectedPosition} onPositionClick={handlePositionClick} onRemovePlayer={handleRemovePlayer} />
             </div>
 
-            {/* Mobile: Team Stats below pitch */}
+            {/* Mobile */}
             <div className="lg:hidden">
               <TeamStats team={team} />
             </div>
